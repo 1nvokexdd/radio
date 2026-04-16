@@ -18,7 +18,31 @@ namespace RadioPlayer
         {
             InitializeComponent();
         }
-        
+        private void Start_Click(object sender ,  RoutedEventArgs e)
+        {
+            try
+            {
+                StopAudio();
+
+                string url = UrlBox.Text;
+
+                reader = new MediaFoundationReader(url);
+
+                outputDevice = new WaveOutEvent();
+
+                outputDevice.Init(reader);
+                outputDevice.Play();
+
+                StatusText.Text = "Статус: играет";
+
+
+            }
+
+            catch(Exception ex)
+            {
+                StatusText.Text = "Ошибка: " + ex.Message;
+            }
+        }
         private void Stop_Click(object sender , RoutedEventArgs e)
         {
             StopAudio();
