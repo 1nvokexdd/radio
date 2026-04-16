@@ -19,5 +19,25 @@ namespace RadioPlayer
             InitializeComponent();
         }
         
-     }
+        private void Stop_Click(object sender , RoutedEventArgs e)
+        {
+            StopAudio();
+            StatusText.Text = "Статус: остановлено";
+        }
+        private void StopAudio()
+        {
+            outputDevice?.Stop();
+            outputDevice?.Dispose();
+            outputDevice = null;
+
+            reader?.Dispose();
+            reader = null;
+
+        }
+        protected override void OnClosed(EventArgs e)
+        {
+            StopAudio();
+            base.OnClosed(e);
+        }
+    }
 }
